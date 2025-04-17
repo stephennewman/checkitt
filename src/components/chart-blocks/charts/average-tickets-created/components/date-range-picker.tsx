@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { averageTicketsCreated } from "@/data/average-tickets-created";
+import { averageTicketsCreated } from "@/data/average-Tickets-created";
 import { dateRangeAtom } from "@/lib/atoms";
 import { cn } from "@/lib/utils";
 
