@@ -167,9 +167,9 @@ export default function TrainingCertificationPage() {
   const assignedModules = trainingModules.filter(module => 
     currentUserProgress.some(p => p.moduleId === module.id && p.status !== 'completed')
   );
-  const completedModules = trainingModules.filter(module => 
-    currentUserProgress.some(p => p.moduleId === module.id && p.status === 'completed')
-  );
+  // const completedModules = trainingModules.filter(module => 
+  //   currentUserProgress.some(p => p.moduleId === module.id && p.status === 'completed')
+  // );
 
   return (
     <div className="space-y-6 p-4 md:p-6">

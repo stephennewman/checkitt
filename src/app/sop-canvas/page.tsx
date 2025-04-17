@@ -1,13 +1,12 @@
 'use client';
 
-import React, { useMemo, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import ReactFlow, {
   Controls,
   Background,
   MiniMap,
   useNodesState,
   useEdgesState,
-  Position,
   MarkerType,
   type Node,
   type Edge,
@@ -18,7 +17,6 @@ import 'reactflow/dist/style.css'; // Import React Flow styles
 
 // Keep custom node import commented out for now
 // import SopNode, { type SopNodeData } from '@/components/sop-node';
-import { CheckSquare, Clock } from 'lucide-react'; // Keep icons for data
 import { Button } from '@/components/ui/button'; // Import Button component
 // Import DropdownMenu components
 import {
@@ -90,7 +88,7 @@ const initialEdges: Edge[] = [
 export default function SopCanvasPage() {
   // Re-added state hooks for nodes/edges
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [edges, , onEdgesChange] = useEdgesState(initialEdges);
 
   // Updated function to add a node with a specific label
   const addItem = useCallback((itemType: string) => {

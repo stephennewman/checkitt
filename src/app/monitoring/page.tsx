@@ -18,20 +18,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { VChart } from "@visactor/react-vchart";
 import type { VChartProps } from "@visactor/react-vchart";
 import {
-  Thermometer, // Temp
-  ThermometerSnowflake, // Freezer
-  ThermometerSun, // Fridge (or too warm)
-  MapPin, // Location
-  Clock, // Time
   CheckCircle, // In Range
   AlertTriangle, // At Risk/Out of Range
   Info, // Notes
-  Filter, // Filter icon
   TrendingUp, // Temp rising
   TrendingDown, // Temp falling
 } from "lucide-react";

@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -20,9 +19,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "@/components/ui/calendar";
 import {
-  Clock, // Time
-  MapPin, // Location
-  User, // Assigned To
   ListChecks, // Scheduled
   BellRing, // Unscheduled
   ClipboardCheck, // Follow-up / Completed

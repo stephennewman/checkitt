@@ -1,4 +1,4 @@
-import Container from "@/components/container";
+// import Container from "@/components/container"; // REMOVE
 import { TopNav } from "@/components/nav";
 
 export default function SopCanvasLayout({ 

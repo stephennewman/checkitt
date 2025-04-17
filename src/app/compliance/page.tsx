@@ -8,13 +8,12 @@ import {
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { CheckCircle, AlertTriangle, FileText, Download, Filter, Archive, ShieldCheck, ListChecks, History, Search, ChevronDown, ChevronRight, Circle, Settings, Trash2 } from 'lucide-react'; // Icons
+import { CheckCircle, AlertTriangle, FileText, Download, Filter, Archive, ShieldCheck, ListChecks, History, Search } from 'lucide-react'; // Icons
 
 // --- Data Structures & Dummy Data ---
 
@@ -47,17 +46,6 @@ interface RegulatoryChecklistItem {
   details?: string;
 }
 
-interface CorrectiveActionItem {
-  id: string;
-  issueId: string; // Links back to ExcursionLog or another issue source
-  dateLogged: string;
-  type: 'Equipment Failure' | 'Human Error' | 'Process Deviation' | 'Other';
-  description: string;
-  status: 'Open' | 'Closed';
-  resolutionTime?: string;
-  attachments: number; // Count of attachments
-}
-
 // Dummy Data Instances
 const auditSummary: AuditSummaryData = {
   sitesMonitored: 174,
@@ -81,12 +69,6 @@ const regulatoryChecklist: RegulatoryChecklistItem[] = [
   { id: 'rc004', category: 'HIPAA', description: 'Access logs for patient data servers reviewed weekly', status: 'not-applicable' }, // Example for non-relevant category
   { id: 'rc005', category: 'WHO', description: 'Vaccine temperature ranges maintained per guidelines', status: 'compliant' },
   { id: 'rc006', category: 'FDA', description: '2 excursion reports missing final sign-off', status: 'issue', details: 'IDs: ex004, ex005 from April 1st' },
-];
-
-const correctiveActions: CorrectiveActionItem[] = [
-  { id: 'ca001', issueId: 'ex001', dateLogged: '2025-04-10', type: 'Equipment Failure', description: 'Freezer FZ-8821 thermostat failed, replaced.', status: 'Closed', resolutionTime: '32 min', attachments: 1 },
-  { id: 'ca002', issueId: 'ex002', dateLogged: '2025-04-08', type: 'Equipment Failure', description: 'Sensor FZ-2180 disconnected, reconnected and tested.', status: 'Closed', resolutionTime: '1h 12m', attachments: 0 },
-  { id: 'ca003', issueId: 'ex003', dateLogged: '2025-04-05', type: 'Process Deviation', description: 'Sensor RF-1050 needed recalibration after power cycle.', status: 'Closed', resolutionTime: '45 min', attachments: 0 },
 ];
 
 // --- Helper Components (Example for Summary Card) ---

@@ -33,7 +33,6 @@ export default function WorkflowPage() {
   const handleSaveWorkflow = (formData: WorkflowFormData) => {
     // console.log("Workflow saved in page:", formData); // Removed console.log
     // Add logic to actually save/update workflow list here
-    console.log("TODO: Implement saving logic for:", formData.name);
     setIsSheetOpen(false);
   };
 
@@ -43,7 +42,6 @@ export default function WorkflowPage() {
   const handleSaveClick = () => {
      // In a real app, you'd get the actual form data here.
      // This requires lifting state up, using refs, or a form library.
-     console.log("Save button clicked - TODO: Get actual form data");
      handleSaveWorkflow({
       name: 'Temp Name', 
       description: 'Temp Desc', 

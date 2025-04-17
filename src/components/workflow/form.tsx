@@ -42,11 +42,12 @@ export interface WorkflowFormData {
 
 // --- Component Props ---
 interface WorkflowFormProps {
-  onSave: (formData: WorkflowFormData) => void; // Use specific type
+  // Remove unused prop
+  // onSave: (formData: WorkflowFormData) => void; 
 }
 
 // --- Form Component ---
-export const WorkflowForm: React.FC<WorkflowFormProps> = ({ onSave }) => {
+export const WorkflowForm: React.FC<WorkflowFormProps> = (/* { onSave } */) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState<WorkflowType>('Checklist');
