@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import ReactFlow, {
   Controls,
   Background,
@@ -19,6 +19,16 @@ import 'reactflow/dist/style.css'; // Import React Flow styles
 // Keep custom node import commented out for now
 // import SopNode, { type SopNodeData } from '@/components/sop-node';
 import { CheckSquare, Clock } from 'lucide-react'; // Keep icons for data
+import { Button } from '@/components/ui/button'; // Import Button component
+// Import DropdownMenu components
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 // Re-added Initial Nodes Data (but removed custom type for now)
 const initialNodes: Node[] = [ // Use default Node type for now
@@ -82,26 +92,57 @@ export default function SopCanvasPage() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
+  // Updated function to add a node with a specific label
+  const addItem = useCallback((itemType: string) => {
+    const newNodeId = `${itemType.toLowerCase()}_${nodes.length + 1}`; // More specific ID
+    const newNode: Node = {
+      id: newNodeId,
+      position: { x: Math.random() * 400 + 50, y: Math.random() * 400 + 50 }, // Avoid edge overlap 
+      data: { label: `${itemType}` }, // Set label based on dropdown selection
+    };
+    setNodes((nds) => nds.concat(newNode));
+  }, [nodes, setNodes]);
+
   // Keep node type registration commented out
   // const nodeTypes = useMemo(() => ({ sopNode: SopNode }), []);
 
   return (
     // Use fixed viewport height for testing
-    <div className="w-full h-[85vh]" >
-      <ReactFlow
-        // Re-add nodes/edges props
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        // Keep nodeTypes commented out
-        fitView // Automatically zoom/pan to fit nodes on initial load
-        className="bg-muted/30" // Light background for the canvas
-      >
-        <Controls />
-        <MiniMap nodeStrokeWidth={3} zoomable pannable />
-        <Background variant={BackgroundVariant.Dots} gap={16} size={1} />
-      </ReactFlow>
+    <div className="w-full h-[85vh] flex flex-col" > 
+      {/* Updated header div for layout */}
+      <div className="p-2 border-b flex justify-end">
+        {/* Replace Button with DropdownMenu */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline">Add Item</Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end"> {/* Align dropdown to the right */}
+            <DropdownMenuLabel>Select Item Type</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onSelect={() => addItem('Location')}>Location</DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => addItem('Asset')}>Asset</DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => addItem('Inventory')}>Inventory</DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => addItem('Workflow')}>Workflow</DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => addItem('Task')}>Task</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+      <div className="flex-grow"> {/* Make ReactFlow container take remaining space */}
+        <ReactFlow
+          // Re-add nodes/edges props
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          // Keep nodeTypes commented out
+          fitView // Automatically zoom/pan to fit nodes on initial load
+          className="bg-muted/30" // Light background for the canvas
+        >
+          <Controls />
+          <MiniMap nodeStrokeWidth={3} zoomable pannable />
+          <Background variant={BackgroundVariant.Dots} gap={16} size={1} />
+        </ReactFlow>
+      </div>
     </div>
   );
 } 

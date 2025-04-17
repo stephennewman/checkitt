@@ -1,4 +1,4 @@
-import { Activity, Box, ClipboardCheck, Gauge, Network, type LucideIcon, MessagesSquare } from "lucide-react";
+import { Activity, Box, ClipboardCheck, Gauge, Network, type LucideIcon, MessagesSquare, GraduationCap, ShieldCheck } from "lucide-react";
 
 export type SiteConfig = typeof siteConfig;
 export type Navigation = {
@@ -19,14 +19,14 @@ export const navigations: Navigation[] = [
     href: "/",
   },
   {
+    icon: Network,
+    name: "SOP Canvas",
+    href: "/sop-canvas",
+  },
+  {
     icon: Activity,
     name: "Monitoring",
     href: "/monitoring",
-  },
-  {
-    icon: Box,
-    name: "Asset Intelligence",
-    href: "/asset-intelligence",
   },
   {
     icon: ClipboardCheck,
@@ -34,8 +34,18 @@ export const navigations: Navigation[] = [
     href: "/execution",
   },
   {
-    icon: Network,
-    name: "SOP Canvas",
-    href: "/sop-canvas",
+    icon: Box,
+    name: "Asset Intelligence",
+    href: "/asset-intelligence",
+  },
+  {
+    icon: GraduationCap,
+    name: "Training",
+    href: "/training-certification",
+  },
+  {
+    icon: ShieldCheck,
+    name: "Compliance",
+    href: "/compliance",
   },
 ];

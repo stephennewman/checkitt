@@ -71,7 +71,7 @@ const spec: IPieChartSpec = {
       offsetY: "40%",
       title: {
         style: {
-          text: "Total Active Tickets",
+          text: "Total Assets",
           fontSize: 16,
           opacity: 0.6,
         },
