@@ -29,8 +29,8 @@ const workflows: WorkflowItem[] = [
 export default function WorkflowPage() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  // Update handler to use specific type and remove console.log
-  const handleSaveWorkflow = (formData: WorkflowFormData) => {
+  // Remove unused parameter entirely
+  const handleSaveWorkflow = () => {
     // console.log("Workflow saved in page:", formData); // Removed console.log
     // Add logic to actually save/update workflow list here
     setIsSheetOpen(false);
@@ -42,13 +42,8 @@ export default function WorkflowPage() {
   const handleSaveClick = () => {
      // In a real app, you'd get the actual form data here.
      // This requires lifting state up, using refs, or a form library.
-     handleSaveWorkflow({
-      name: 'Temp Name', 
-      description: 'Temp Desc', 
-      type: 'Checklist', 
-      trigger: 'Manual', 
-      steps: [] 
-     }); 
+     // We pass a dummy object now since handleSaveWorkflow doesn't accept args
+     handleSaveWorkflow(); 
   };
 
   return (
@@ -91,7 +86,7 @@ export default function WorkflowPage() {
            </SheetDescription>
          </SheetHeader>
          <div className="py-4">
-           <WorkflowForm onSave={handleSaveWorkflow} />
+           <WorkflowForm />
          </div>
          <SheetFooter>
            <SheetClose asChild>
