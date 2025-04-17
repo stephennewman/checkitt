@@ -1,11 +1,16 @@
-import { Activity, Box, ClipboardCheck, Gauge, Network, type LucideIcon, MessagesSquare, GraduationCap, ShieldCheck } from "lucide-react";
+import {
+  Activity, Box, ClipboardCheck, Gauge, Network, type LucideIcon, GraduationCap, ShieldCheck, MapPin, Signal, ListChecks, Users, Building, Package, BarChart3
+} from "lucide-react";
 
 export type SiteConfig = typeof siteConfig;
-export type Navigation = {
-  icon: LucideIcon;
+
+export interface Navigation {
   name: string;
-  href: string;
-};
+  href?: string;
+  icon?: LucideIcon;
+  isHeader?: boolean;
+  children?: Navigation[];
+}
 
 export const siteConfig = {
   title: "Checkit",
@@ -19,33 +24,86 @@ export const navigations: Navigation[] = [
     href: "/",
   },
   {
-    icon: Network,
-    name: "SOP Canvas",
-    href: "/sop-canvas",
+    name: "People",
+    isHeader: true,
+    icon: Users,
+    children: [
+      {
+        icon: ClipboardCheck,
+        name: "Tasks",
+        href: "/execution",
+      },
+      {
+        icon: ListChecks,
+        name: "Workflow",
+        href: "/workflow",
+      },
+      {
+        icon: GraduationCap,
+        name: "Training",
+        href: "/training-certification",
+      },
+    ]
   },
   {
-    icon: Activity,
-    name: "Monitoring",
-    href: "/monitoring",
+    name: "Places",
+    isHeader: true,
+    icon: Building,
+    children: [
+      {
+        icon: MapPin,
+        name: "Locations",
+        href: "/locations",
+      },
+      {
+        icon: Network,
+        name: "Processes",
+        href: "/sop-canvas",
+      },
+    ]
   },
   {
-    icon: ClipboardCheck,
-    name: "Execution",
-    href: "/execution",
-  },
-  {
+    name: "Things",
+    isHeader: true,
     icon: Box,
-    name: "Asset Intelligence",
-    href: "/asset-intelligence",
+    children: [
+      {
+        icon: Signal,
+        name: "Sensors",
+        href: "/sensors",
+      },
+      {
+        icon: Activity,
+        name: "Monitoring",
+        href: "/monitoring",
+      },
+    ]
   },
   {
-    icon: GraduationCap,
-    name: "Training",
-    href: "/training-certification",
-  },
-  {
-    icon: ShieldCheck,
-    name: "Compliance",
-    href: "/compliance",
+    name: "Reporting",
+    isHeader: true,
+    icon: BarChart3,
+    children: [
+      {
+        icon: ShieldCheck,
+        name: "Compliance",
+        href: "/compliance",
+      },
+      {
+        icon: Box,
+        name: "Asset Intelligence",
+        href: "/asset-intelligence",
+      },
+      {
+        icon: Package,
+        name: "Inventory Intelligence",
+        href: "/inventory-intelligence",
+      },
+      {
+        icon: Users,
+        name: "Workforce Intelligence",
+        href: "/workforce-intelligence",
+      },
+    ]
   },
 ];

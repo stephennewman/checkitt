@@ -153,156 +153,164 @@ export default function ExecutionPage() {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
   return (
-    <div className="p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Left Column (Span 2): Feed and Overview */}
-      <div className="lg:col-span-2 space-y-6">
-        {/* Task Activity Feed */}
-        <Card className="h-[400px] flex flex-col"> {/* Fixed height */} 
-          <CardHeader>
-            <CardTitle>Task Activity Feed</CardTitle>
-            {/* TODO: Add real-time update indicator */}
-          </CardHeader>
-          <CardContent className="flex-grow overflow-y-auto pr-2"> {/* Scrollable content */}
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[60px]">Time</TableHead>
-                  <TableHead>Location</TableHead>
-                  <TableHead>Assigned</TableHead>
-                  <TableHead>Task / Type</TableHead>
-                  <TableHead className="text-right">Status</TableHead>
-                  <TableHead className="w-[150px]">Flags</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {taskFeed.map((task) => (
-                  <TableRow key={task.id}>
-                    <TableCell className="text-xs text-muted-foreground">{task.time}</TableCell>
-                    <TableCell className="text-xs font-medium">{task.location}</TableCell>
-                    <TableCell className="text-xs">{task.assignedTo}</TableCell>
-                    <TableCell className="text-xs flex items-center space-x-1">
-                        {getTaskTypeIcon(task.taskType)}
-                        <span>{task.description ?? task.taskType}</span>
-                    </TableCell>
-                    <TableCell className="text-right">
-                        <Badge variant={getStatusBadgeVariant(task.status)} className="text-xs">
-                            {task.status === 'Completed' && <CheckCircle className="h-3 w-3 mr-1"/>}
-                            {task.status === 'Missed' && <AlertTriangle className="h-3 w-3 mr-1"/>}
-                            {task.status}
-                        </Badge>
-                    </TableCell>
-                    <TableCell className="text-xs flex space-x-1.5 items-center">
-                        {getPriorityIcon(task.priority)}
-                        {task.hasDocs && <Camera className="h-4 w-4 text-blue-500" />}
-                        {task.needsTraining && <Brain className="h-4 w-4 text-purple-500" />}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-
-        {/* Global Execution Overview */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Global Execution Overview</CardTitle>
-          </CardHeader>
-          <CardContent>
-             <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Region</TableHead>
-                  <TableHead className="text-center">Locations</TableHead>
-                  <TableHead className="text-center">Tasks (Today)</TableHead>
-                  <TableHead className="text-center">Completed On-Time</TableHead>
-                  <TableHead className="text-center">Missed</TableHead>
-                  <TableHead className="text-center">Follow-Ups</TableHead>
-                  <TableHead className="text-right">Trend</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {regionOverview.map((region) => (
-                  <TableRow key={region.region}>
-                    <TableCell className="font-medium">{region.region}</TableCell>
-                    <TableCell className="text-center">{region.locations}</TableCell>
-                    <TableCell className="text-center">{region.totalTasksToday}</TableCell>
-                    <TableCell className={`text-center ${region.completedOnTimePercent >= 90 ? 'text-green-600' : region.completedOnTimePercent >= 80 ? 'text-yellow-600' : 'text-red-600'}`}>
-                        {region.completedOnTimePercent}%
-                    </TableCell>
-                    <TableCell className="text-center">{region.missedTasks}</TableCell>
-                    <TableCell className="text-center">{region.followUpsCreated}</TableCell>
-                    <TableCell className="text-right">{getTrendIcon(region.performanceTrend)}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+    <div className="p-4 md:p-6 space-y-6">
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold tracking-tight">Tasks</h1>
+         <div className="flex items-center gap-2">
+           {/* Placeholder for Filters/Actions */}
+         </div>
       </div>
+      <div className="p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left Column (Span 2): Feed and Overview */}
+        <div className="lg:col-span-2 space-y-6">
+          {/* Task Activity Feed */}
+          <Card className="h-[400px] flex flex-col"> {/* Fixed height */} 
+            <CardHeader>
+              <CardTitle>Task Activity Feed</CardTitle>
+              {/* TODO: Add real-time update indicator */}
+            </CardHeader>
+            <CardContent className="flex-grow overflow-y-auto pr-2"> {/* Scrollable content */}
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[60px]">Time</TableHead>
+                    <TableHead>Location</TableHead>
+                    <TableHead>Assigned</TableHead>
+                    <TableHead>Task / Type</TableHead>
+                    <TableHead className="text-right">Status</TableHead>
+                    <TableHead className="w-[150px]">Flags</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {taskFeed.map((task) => (
+                    <TableRow key={task.id}>
+                      <TableCell className="text-xs text-muted-foreground">{task.time}</TableCell>
+                      <TableCell className="text-xs font-medium">{task.location}</TableCell>
+                      <TableCell className="text-xs">{task.assignedTo}</TableCell>
+                      <TableCell className="text-xs flex items-center space-x-1">
+                          {getTaskTypeIcon(task.taskType)}
+                          <span>{task.description ?? task.taskType}</span>
+                      </TableCell>
+                      <TableCell className="text-right">
+                          <Badge variant={getStatusBadgeVariant(task.status)} className="text-xs">
+                              {task.status === 'Completed' && <CheckCircle className="h-3 w-3 mr-1"/>}
+                              {task.status === 'Missed' && <AlertTriangle className="h-3 w-3 mr-1"/>}
+                              {task.status}
+                          </Badge>
+                      </TableCell>
+                      <TableCell className="text-xs flex space-x-1.5 items-center">
+                          {getPriorityIcon(task.priority)}
+                          {task.hasDocs && <Camera className="h-4 w-4 text-blue-500" />}
+                          {task.needsTraining && <Brain className="h-4 w-4 text-purple-500" />}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
 
-      {/* Right Column (Span 1): Calendar, Quality, Training */}
-      <div className="lg:col-span-1 space-y-6">
-        {/* Scheduled Task Calendar */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Scheduled Task Calendar</CardTitle>
-            <CardDescription>View recurring tasks. {/* TODO: Add Filters */}</CardDescription>
-          </CardHeader>
-          <CardContent className="flex justify-center">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              className="rounded-md border p-0"
-            />
-          </CardContent>
-        </Card>
+          {/* Global Execution Overview */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Global Execution Overview</CardTitle>
+            </CardHeader>
+            <CardContent>
+               <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Region</TableHead>
+                    <TableHead className="text-center">Locations</TableHead>
+                    <TableHead className="text-center">Tasks (Today)</TableHead>
+                    <TableHead className="text-center">Completed On-Time</TableHead>
+                    <TableHead className="text-center">Missed</TableHead>
+                    <TableHead className="text-center">Follow-Ups</TableHead>
+                    <TableHead className="text-right">Trend</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {regionOverview.map((region) => (
+                    <TableRow key={region.region}>
+                      <TableCell className="font-medium">{region.region}</TableCell>
+                      <TableCell className="text-center">{region.locations}</TableCell>
+                      <TableCell className="text-center">{region.totalTasksToday}</TableCell>
+                      <TableCell className={`text-center ${region.completedOnTimePercent >= 90 ? 'text-green-600' : region.completedOnTimePercent >= 80 ? 'text-yellow-600' : 'text-red-600'}`}>
+                          {region.completedOnTimePercent}%
+                      </TableCell>
+                      <TableCell className="text-center">{region.missedTasks}</TableCell>
+                      <TableCell className="text-center">{region.followUpsCreated}</TableCell>
+                      <TableCell className="text-right">{getTrendIcon(region.performanceTrend)}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </div>
 
-        {/* Task Completion Quality */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Completion Quality</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2 text-sm">
-            <div className="flex items-center justify-between">
-                <span className="text-muted-foreground flex items-center"><Camera className="h-4 w-4 mr-1"/> Docs Submitted:</span>
-                <span>{qualityData.docsSubmittedPercent}%</span>
-            </div>
-             <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">Tasks Missing Context:</span>
-                <span>{qualityData.tasksMissingContext}</span>
-            </div>
-             <div className="flex items-center justify-between">
-                <span className="text-muted-foreground flex items-center"><ClipboardCheck className="h-4 w-4 mr-1"/> Triggered Follow-Up:</span>
-                <span>{qualityData.tasksTriggeringFollowUp}</span>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Right Column (Span 1): Calendar, Quality, Training */}
+        <div className="lg:col-span-1 space-y-6">
+          {/* Scheduled Task Calendar */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Scheduled Task Calendar</CardTitle>
+              <CardDescription>View recurring tasks. {/* TODO: Add Filters */}</CardDescription>
+            </CardHeader>
+            <CardContent className="flex justify-center">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                className="rounded-md border p-0"
+              />
+            </CardContent>
+          </Card>
 
-        {/* Training & Onboarding Insight */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Training & Onboarding</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3 text-sm">
+          {/* Task Completion Quality */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Completion Quality</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
               <div className="flex items-center justify-between">
-                <span className="text-muted-foreground flex items-center"><Brain className="h-4 w-4 mr-1"/> Users Needing Coaching:</span>
-                <span>{trainingData.usersNeedingCoaching.length}</span>
-                {/* TODO: Link to user list/details */} 
+                  <span className="text-muted-foreground flex items-center"><Camera className="h-4 w-4 mr-1"/> Docs Submitted:</span>
+                  <span>{qualityData.docsSubmittedPercent}%</span>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground flex items-center"><HelpCircle className="h-4 w-4 mr-1"/> Help Content Accessed:</span>
-                <span>{trainingData.helpContentAccessRate}%</span>
+               <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Tasks Missing Context:</span>
+                  <span>{qualityData.tasksMissingContext}</span>
               </div>
-              <div>
-                  <span className="text-muted-foreground">Top Retraining Areas:</span>
-                  <ul className="list-disc list-inside text-xs pl-2 mt-1">
-                      {trainingData.topRetrainingAreas.map(area => <li key={area}>{area}</li>)}
-                  </ul>
+               <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground flex items-center"><ClipboardCheck className="h-4 w-4 mr-1"/> Triggered Follow-Up:</span>
+                  <span>{qualityData.tasksTriggeringFollowUp}</span>
               </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+
+          {/* Training & Onboarding Insight */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Training & Onboarding</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm">
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground flex items-center"><Brain className="h-4 w-4 mr-1"/> Users Needing Coaching:</span>
+                  <span>{trainingData.usersNeedingCoaching.length}</span>
+                  {/* TODO: Link to user list/details */} 
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground flex items-center"><HelpCircle className="h-4 w-4 mr-1"/> Help Content Accessed:</span>
+                  <span>{trainingData.helpContentAccessRate}%</span>
+                </div>
+                <div>
+                    <span className="text-muted-foreground">Top Retraining Areas:</span>
+                    <ul className="list-disc list-inside text-xs pl-2 mt-1">
+                        {trainingData.topRetrainingAreas.map(area => <li key={area}>{area}</li>)}
+                    </ul>
+                </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
