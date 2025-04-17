@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import {
   Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetFooter, SheetClose
 } from "@/components/ui/sheet";
-import { WorkflowForm } from '@/components/workflow/form';
+import { WorkflowForm, type WorkflowFormData } from '@/components/workflow/form';
 import { PlusCircle, ListChecks } from 'lucide-react';
 
 // --- Dummy Data (Placeholder) ---
@@ -29,11 +29,28 @@ const workflows: WorkflowItem[] = [
 export default function WorkflowPage() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  // Dummy save handler
-  const handleSaveWorkflow = (formData: any) => {
-    console.log("Workflow saved in page:", formData);
+  // Update handler to use specific type and remove console.log
+  const handleSaveWorkflow = (formData: WorkflowFormData) => {
+    // console.log("Workflow saved in page:", formData); // Removed console.log
     // Add logic to actually save/update workflow list here
-    setIsSheetOpen(false); // Close the sheet after save
+    console.log("TODO: Implement saving logic for:", formData.name);
+    setIsSheetOpen(false);
+  };
+
+  // TODO: This handleSaveClick function is a temporary workaround because the 
+  // WorkflowForm doesn't expose its internal state or a submit handler.
+  // Ideally, use react-hook-form in WorkflowForm and trigger submission from there.
+  const handleSaveClick = () => {
+     // In a real app, you'd get the actual form data here.
+     // This requires lifting state up, using refs, or a form library.
+     console.log("Save button clicked - TODO: Get actual form data");
+     handleSaveWorkflow({
+      name: 'Temp Name', 
+      description: 'Temp Desc', 
+      type: 'Checklist', 
+      trigger: 'Manual', 
+      steps: [] 
+     }); 
   };
 
   return (
@@ -82,11 +99,7 @@ export default function WorkflowPage() {
            <SheetClose asChild>
              <Button type="button" variant="outline">Cancel</Button>
            </SheetClose>
-            <Button type="button" onClick={() => {
-              // Ideally, trigger form submission validation here before calling save 
-              // For now, just calling the dummy save directly
-              handleSaveWorkflow({ basic: 'data' }); // Pass dummy data or get actual form state
-            }}>Save Workflow</Button>
+            <Button type="button" onClick={handleSaveClick}>Save Workflow</Button>
          </SheetFooter>
        </SheetContent>
     </Sheet>

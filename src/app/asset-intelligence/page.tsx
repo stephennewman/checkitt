@@ -20,11 +20,14 @@ import { Badge } from "@/components/ui/badge";
 import {
   AlertTriangle, // Warning
   AlertCircle, // Info/Warning
-  CheckCircle, // Healthy
   MapPin, // Location
   Clock, // Time
+  ClipboardCheck,
+  Database,
 } from "lucide-react";
 import type { LatLngExpression } from 'leaflet';
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // Dynamically import the Map component to avoid SSR issues with Leaflet
 const MapDisplay = dynamic(() => import('@/components/map-display'), {

@@ -5,7 +5,6 @@ import {
   Metrics,
   AssetsByType,
 } from "@/components/chart-blocks";
-import Container from "@/components/container";
 import {
   Card,
   CardContent,

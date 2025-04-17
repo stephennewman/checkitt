@@ -1,9 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetFooter, SheetClose
-} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -32,9 +29,20 @@ interface WorkflowStep {
   required: boolean;
 }
 
+// Define specific form data type
+export interface WorkflowFormData {
+  name: string;
+  description: string;
+  type: WorkflowType;
+  trigger: TriggerType;
+  scheduleDetails?: Date;
+  steps: WorkflowStep[];
+  // Add assignments etc. later
+}
+
 // --- Component Props ---
 interface WorkflowFormProps {
-  onSave: (formData: any) => void; // Replace 'any' with a proper form data type
+  onSave: (formData: WorkflowFormData) => void; // Use specific type
 }
 
 // --- Form Component ---
@@ -56,12 +64,6 @@ export const WorkflowForm: React.FC<WorkflowFormProps> = ({ onSave }) => {
 
   const updateStep = (id: string, field: keyof WorkflowStep, value: string | boolean) => {
     setSteps(steps.map(step => step.id === id ? { ...step, [field]: value } : step));
-  };
-
-  const handleSave = () => {
-    const formData = { name, description, type, trigger, scheduleDetails, steps };
-    console.log("Saving workflow:", formData);
-    onSave(formData);
   };
 
   return (
